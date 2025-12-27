@@ -8,16 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+        uses: inkatkov/buildozer-action@master
         with:
-          workdir: .
-          buildozer_version: stable
-
+          buildozer_command: "buildozer -v android debug"
+      
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: fingerprint-apk
-          path: ${{ steps.buildozer.outputs.filename }}
+          path: bin/*.apk
